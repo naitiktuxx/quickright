@@ -392,6 +392,61 @@
       }
     }
 
+    function findScrollableContainer(target) {
+      let el = target;
+      while (el && el !== document.body && el !== document.documentElement) {
+        try {
+          const style = window.getComputedStyle(el);
+          const overflowY = style.overflowY || style.overflow;
+          if ((overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay') && el.scrollHeight > el.clientHeight + 10) {
+            return el;
+          }
+        } catch (e) {}
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    function scrollToTopAction(target) {
+      const container = findScrollableContainer(target);
+      if (container) {
+        container.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      if (document.scrollingElement) {
+        document.scrollingElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      if (document.documentElement) {
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      if (document.body) {
+        document.body.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+
+    function scrollToBottomAction(target) {
+      const container = findScrollableContainer(target);
+      if (container) {
+        container.scrollTo({ top: container.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      const maxScroll = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement ? document.documentElement.scrollHeight : 0,
+        document.scrollingElement ? document.scrollingElement.scrollHeight : 0,
+        9999999
+      );
+      if (document.scrollingElement) {
+        document.scrollingElement.scrollTo({ top: document.scrollingElement.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      if (document.documentElement) {
+        document.documentElement.scrollTo({ top: document.documentElement.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      if (document.body) {
+        document.body.scrollTo({ top: document.body.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      window.scrollTo({ top: maxScroll, left: 0, behavior: 'smooth' });
+    }
+
     async function copyImage(url, element) {
       try {
         let blob = null;
@@ -805,11 +860,11 @@
       addSeparator();
       addItem({
         label: 'Scroll to Top',
-        action: () => window.scrollTo({ top: 0, behavior: 'smooth' })
+        action: () => scrollToTopAction(target)
       });
       addItem({
         label: 'Scroll to Bottom',
-        action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+        action: () => scrollToBottomAction(target)
       });
     }
 
