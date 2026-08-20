@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Native Right-Click Menu for Chromium",
+  "version": "1.0.0",
+  "description": "Fast, clean right-click context menu that coexists smoothly with mouse gesture extensions.",
+  "permissions": [
+    "tabs",
+    "storage",
+    "clipboardWrite",
+    "downloads"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["menu.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

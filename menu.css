@@ -1,0 +1,250 @@
+/* menu.css - Liquid Glassmorphic Translucent Context Menu with Chrome Icons */
+
+:host {
+  all: initial !important;
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: visible !important;
+  z-index: 2147483647 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+.nrc-menu-wrapper {
+  --nrc-bg: rgba(29, 30, 33, 0.62);
+  --nrc-text: #f0f0f2;
+  --nrc-text-secondary: #9aa0a6;
+  --nrc-text-disabled: rgba(255, 255, 255, 0.32);
+  --nrc-hover-bg: #1656ba;
+  --nrc-active-bg: #1557b0;
+  --nrc-border: rgba(190, 193, 202, 0.46);
+  --nrc-separator: rgba(255, 255, 255, 0.12);
+  --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.34), 0 18px 44px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  --nrc-menu-min-width: 210px;
+  --nrc-menu-font-size: 13px;
+  --nrc-item-height: 34px;
+  --nrc-item-gap: 12px;
+  --nrc-item-padding-x: 10px;
+  --nrc-item-radius: 8px;
+  --nrc-icon-size: 16px;
+  --nrc-menu-radius: 14px;
+  --nrc-menu-padding: 6px;
+  --nrc-separator-margin: 6px 8px;
+}
+
+.nrc-menu-wrapper.menu-size-compact {
+  --nrc-menu-min-width: 190px;
+  --nrc-menu-font-size: 12px;
+  --nrc-item-height: 26px;
+  --nrc-item-gap: 8px;
+  --nrc-item-padding-x: 8px;
+  --nrc-item-radius: 6px;
+  --nrc-icon-size: 14px;
+  --nrc-menu-radius: 12px;
+  --nrc-menu-padding: 4px;
+  --nrc-separator-margin: 4px 7px;
+}
+
+.nrc-menu-wrapper.menu-size-large {
+  --nrc-menu-min-width: 236px;
+  --nrc-menu-font-size: 14px;
+  --nrc-item-height: 40px;
+  --nrc-item-gap: 14px;
+  --nrc-item-padding-x: 12px;
+  --nrc-item-radius: 10px;
+  --nrc-icon-size: 18px;
+  --nrc-menu-radius: 16px;
+  --nrc-menu-padding: 7px;
+  --nrc-separator-margin: 7px 9px;
+}
+
+@media (prefers-color-scheme: light) {
+  .nrc-menu-wrapper.theme-auto {
+    --nrc-bg: rgba(255, 255, 255, 0.72);
+    --nrc-text: #1a1a1c;
+    --nrc-text-secondary: #5f6368;
+    --nrc-text-disabled: rgba(0, 0, 0, 0.32);
+    --nrc-hover-bg: #1656ba;
+    --nrc-active-bg: #1557b0;
+    --nrc-border: rgba(255, 255, 255, 0.75);
+    --nrc-separator: rgba(0, 0, 0, 0.08);
+    --nrc-shadow: 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  }
+}
+
+.nrc-menu-wrapper.theme-light {
+  --nrc-bg: rgba(255, 255, 255, 0.72);
+  --nrc-text: #1a1a1c;
+  --nrc-text-secondary: #5f6368;
+  --nrc-text-disabled: rgba(0, 0, 0, 0.32);
+  --nrc-hover-bg: #1656ba;
+  --nrc-active-bg: #1557b0;
+  --nrc-border: rgba(255, 255, 255, 0.75);
+  --nrc-separator: rgba(0, 0, 0, 0.08);
+  --nrc-shadow: 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+.nrc-menu-wrapper.theme-dark {
+  --nrc-bg: rgba(29, 30, 33, 0.62);
+  --nrc-text: #f0f0f2;
+  --nrc-text-secondary: #9aa0a6;
+  --nrc-text-disabled: rgba(255, 255, 255, 0.32);
+  --nrc-hover-bg: #1656ba;
+  --nrc-active-bg: #1557b0;
+  --nrc-border: rgba(190, 193, 202, 0.46);
+  --nrc-separator: rgba(255, 255, 255, 0.12);
+  --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.34), 0 18px 44px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.nrc-menu {
+  position: fixed;
+  min-width: var(--nrc-menu-min-width);
+  max-width: 320px;
+  max-height: calc(100vh - 16px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  background-color: var(--nrc-bg);
+  color: var(--nrc-text);
+  border: 1px solid var(--nrc-border);
+  border-radius: var(--nrc-menu-radius);
+  box-shadow: var(--nrc-shadow);
+  backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86);
+  -webkit-backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86);
+  padding: var(--nrc-menu-padding);
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: var(--nrc-menu-font-size);
+  line-height: 1.35;
+  outline: none;
+  opacity: 0;
+  transform: scale(0.97);
+  transform-origin: top left;
+  transition: opacity 0.1s cubic-bezier(0.2, 0, 0, 1), transform 0.1s cubic-bezier(0.2, 0, 0, 1);
+  pointer-events: auto;
+}
+
+.nrc-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.nrc-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+}
+
+.nrc-menu.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nrc-item-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nrc-item {
+  display: flex;
+  align-items: center;
+  gap: var(--nrc-item-gap);
+  height: var(--nrc-item-height);
+  padding: 0 var(--nrc-item-padding-x);
+  border-radius: var(--nrc-item-radius);
+  color: var(--nrc-text);
+  font-size: var(--nrc-menu-font-size);
+  font-weight: 400;
+  cursor: default;
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+}
+
+.nrc-icon {
+  width: var(--nrc-icon-size);
+  height: var(--nrc-icon-size);
+  min-width: var(--nrc-icon-size);
+  min-height: var(--nrc-icon-size);
+  fill: currentColor;
+  opacity: 0.82;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nrc-item:hover .nrc-icon,
+.nrc-item.focused .nrc-icon {
+  opacity: 1;
+}
+
+.nrc-item.disabled .nrc-icon {
+  opacity: 0.32;
+}
+
+.nrc-item:hover,
+.nrc-item.focused {
+  background-color: var(--nrc-hover-bg);
+  color: #ffffff;
+}
+
+.nrc-item:focus-visible {
+  outline: 2px solid var(--nrc-active-bg);
+  outline-offset: -2px;
+}
+
+.nrc-item:active {
+  background-color: var(--nrc-active-bg);
+}
+
+.nrc-item.disabled {
+  color: var(--nrc-text-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+.nrc-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nrc-separator {
+  height: 1px;
+  background-color: var(--nrc-separator);
+  margin: var(--nrc-separator-margin);
+}
+
+/* Toast with liquid glass blur */
+.nrc-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background-color: var(--nrc-bg);
+  color: var(--nrc-text);
+  border: 1px solid var(--nrc-border);
+  box-shadow: var(--nrc-shadow);
+  backdrop-filter: blur(28px) saturate(145%) contrast(105%) brightness(0.86);
+  -webkit-backdrop-filter: blur(28px) saturate(145%) contrast(105%) brightness(0.86);
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 2147483647;
+}
+
+.nrc-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

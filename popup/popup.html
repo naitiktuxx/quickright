@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Right Click Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="header">
+    <div class="title-group">
+      <div class="logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      </div>
+      <h2>Native Context Menu</h2>
+    </div>
+    <span class="badge">v1.0</span>
+  </div>
+
+  <div class="content">
+    <div class="section">
+      <label class="section-title">Trigger Mode</label>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="triggerMode" value="tap">
+          <div class="radio-info">
+            <span class="radio-label">Stationary Tap (Recommended)</span>
+            <span class="radio-desc">Right-click without drag opens menu; drag triggers gestures</span>
+          </div>
+        </label>
+
+        <label class="radio-option">
+          <input type="radio" name="triggerMode" value="longpress">
+          <div class="radio-info">
+            <span class="radio-label">Hold / Long Press</span>
+            <span class="radio-desc">Hold right-click stationary for 250ms</span>
+          </div>
+        </label>
+
+        <label class="radio-option">
+          <input type="radio" name="triggerMode" value="double">
+          <div class="radio-info">
+            <span class="radio-label">Double Right-Click</span>
+            <span class="radio-desc">Quickly right-click twice anywhere</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title">Theme</label>
+      <div class="select-wrapper">
+        <select id="themeSelect">
+          <option value="auto">System Default (Auto)</option>
+          <option value="dark">Dark Mode (Default)</option>
+          <option value="light">Light Mode</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title" for="menuSizeSelect">Menu Size</label>
+      <div class="select-wrapper">
+        <select id="menuSizeSelect">
+          <option value="compact">Compact</option>
+          <option value="medium">Medium (Default)</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span id="savedIndicator">Settings saved</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
