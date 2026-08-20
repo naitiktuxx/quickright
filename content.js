@@ -211,9 +211,7 @@
       reload: 'M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z',
       newTab: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 10h-4v4h-2v-4H8v-2h4V7h2v4h4v2z',
       close: 'M18.3 5.71 16.89 4.3 12 9.17 7.11 4.3 5.7 5.71 10.59 10.59 5.7 15.48l1.41 1.41L12 12l4.89 4.89 1.41-1.41-4.89-4.89 4.89-4.88z',
-      downloads: 'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2z',
-      scrollTop: 'm7.41 15.59L12 11l4.59 4.59L18 14.17l-6-6-6 6 1.41 1.42zM5 4h14v2H5z',
-      scrollBottom: 'm7.41 8.41L12 13l4.59-4.59L18 9.83l-6 6-6-6 1.41-1.42zM5 18h14v2H5z'
+      downloads: 'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2z'
     };
 
     function getMenuIcon(label) {
@@ -236,8 +234,6 @@
       if (label === 'New Tab') return menuIcons.newTab;
       if (label === 'Close Tab') return menuIcons.close;
       if (label === 'Downloads') return menuIcons.downloads;
-      if (label === 'Scroll to Top') return menuIcons.scrollTop;
-      if (label === 'Scroll to Bottom') return menuIcons.scrollBottom;
       return menuIcons.copy;
     }
 
@@ -253,8 +249,6 @@
       if (label === 'Cut') return `${cmdKey}X`;
       if (label === 'Paste') return `${cmdKey}V`;
       if (label === 'Select All') return `${cmdKey}A`;
-      if (label === 'Scroll to Top') return 'Home';
-      if (label === 'Scroll to Bottom') return 'End';
       return null;
     }
 
@@ -390,89 +384,6 @@
           document.execCommand('insertText', false, text);
         }
       }
-    }
-
-    function performUniversalScroll(toTop, target) {
-      // 1. Direct ancestor scrollable containers
-      let el = target;
-      while (el && el !== document.body && el !== document.documentElement) {
-        try {
-          const style = window.getComputedStyle(el);
-          const overflowY = style.overflowY || style.overflow;
-          if ((overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay') && el.scrollHeight > el.clientHeight + 4) {
-            const dest = toTop ? 0 : el.scrollHeight;
-            if (el.scrollTo) el.scrollTo({ top: dest, behavior: 'smooth' });
-            el.scrollTop = dest;
-          }
-        } catch (e) {}
-        el = el.parentElement;
-      }
-
-      // 2. Query major layout containers (SPAs, React/Vue root, feeds, chat logs)
-      const majorContainers = document.querySelectorAll('main, [role="main"], [role="feed"], #app, #root, #__next, .main, .content, .container, body > div');
-      for (const container of majorContainers) {
-        try {
-          if (container.scrollHeight > container.clientHeight + 30 && container.clientHeight > 150) {
-            const style = window.getComputedStyle(container);
-            const overflowY = style.overflowY || style.overflow;
-            if (overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay') {
-              const dest = toTop ? 0 : container.scrollHeight;
-              if (container.scrollTo) container.scrollTo({ top: dest, behavior: 'smooth' });
-              container.scrollTop = dest;
-            }
-          }
-        } catch (e) {}
-      }
-
-      // 3. Document-level roots
-      const maxScroll = Math.max(
-        document.body ? document.body.scrollHeight : 0,
-        document.documentElement ? document.documentElement.scrollHeight : 0,
-        document.scrollingElement ? document.scrollingElement.scrollHeight : 0,
-        9999999
-      );
-      const docDest = toTop ? 0 : maxScroll;
-
-      try {
-        window.scrollTo({ top: docDest, left: 0, behavior: 'smooth' });
-      } catch (e) {
-        window.scrollTo(0, docDest);
-      }
-
-      if (document.scrollingElement) {
-        try { document.scrollingElement.scrollTo({ top: docDest, left: 0, behavior: 'smooth' }); } catch (e) {}
-        document.scrollingElement.scrollTop = docDest;
-      }
-      if (document.documentElement) {
-        try { document.documentElement.scrollTo({ top: docDest, left: 0, behavior: 'smooth' }); } catch (e) {}
-        document.documentElement.scrollTop = docDest;
-      }
-      if (document.body) {
-        try { document.body.scrollTo({ top: docDest, left: 0, behavior: 'smooth' }); } catch (e) {}
-        document.body.scrollTop = docDest;
-      }
-
-      // 4. Dispatch virtual list / accessibility keyboard events (for Twitter/Discord/Reddit feeds)
-      try {
-        const keyName = toTop ? 'Home' : 'End';
-        const keyEvt = new KeyboardEvent('keydown', {
-          key: keyName,
-          code: keyName,
-          keyCode: toTop ? 36 : 35,
-          which: toTop ? 36 : 35,
-          bubbles: true,
-          cancelable: true
-        });
-        (target || document.activeElement || document.body).dispatchEvent(keyEvt);
-      } catch (e) {}
-    }
-
-    function scrollToTopAction(target) {
-      performUniversalScroll(true, target);
-    }
-
-    function scrollToBottomAction(target) {
-      performUniversalScroll(false, target);
     }
 
     async function copyImage(url, element) {
@@ -885,15 +796,6 @@
           }
         }
       });
-      addSeparator();
-      addItem({
-        label: 'Scroll to Top',
-        action: () => scrollToTopAction(target)
-      });
-      addItem({
-        label: 'Scroll to Bottom',
-        action: () => scrollToBottomAction(target)
-      });
     }
 
     menuContainer.appendChild(itemsList);
@@ -1031,10 +933,10 @@
     }
   }, { capture: true, passive: true });
 
-  // Suppress browser native menu in bubble phase so gesture extensions receive prior capture phase
+  // Suppress browser native menu, but NEVER open custom menu directly on mousedown
   window.addEventListener('contextmenu', (e) => {
     e.preventDefault();
-  }, { capture: false });
+  }, { capture: true });
 
   // Dismiss listeners
   window.addEventListener('scroll', () => {
