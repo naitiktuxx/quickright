@@ -13,6 +13,23 @@
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  color-scheme: only light dark !important;
+}
+
+/* Anti-DarkReader Protection: Prevent color inversion / filter contamination */
+:host,
+#nrc-context-menu-host,
+.nrc-menu-wrapper,
+.nrc-menu,
+.nrc-item,
+.nrc-icon,
+.nrc-separator,
+.nrc-shortcut,
+.nrc-toast {
+  filter: none !important;
+  -webkit-filter: none !important;
 }
 
 .nrc-menu-wrapper {

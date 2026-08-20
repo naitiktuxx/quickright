@@ -80,6 +80,8 @@
     // Create root host
     menuHost = document.createElement('div');
     menuHost.id = 'nrc-context-menu-host';
+    menuHost.setAttribute('data-darkreader-ignore', 'true');
+    menuHost.classList.add('darkreader-ignore');
     menuHost.style.cssText = 'all:initial!important;position:absolute!important;top:0!important;left:0!important;z-index:2147483647!important;';
 
     shadowRoot = menuHost.attachShadow({ mode: 'open' });
@@ -92,18 +94,21 @@
 
     // Wrapper
     const wrapper = document.createElement('div');
-    wrapper.className = 'nrc-menu-wrapper';
+    wrapper.className = 'nrc-menu-wrapper darkreader-ignore';
+    wrapper.setAttribute('data-darkreader-ignore', 'true');
     shadowRoot.appendChild(wrapper);
 
     // Menu container
     menuContainer = document.createElement('div');
-    menuContainer.className = 'nrc-menu';
+    menuContainer.className = 'nrc-menu darkreader-ignore';
+    menuContainer.setAttribute('data-darkreader-ignore', 'true');
     menuContainer.tabIndex = -1;
     wrapper.appendChild(menuContainer);
 
     // Toast
     toastElement = document.createElement('div');
-    toastElement.className = 'nrc-toast';
+    toastElement.className = 'nrc-toast darkreader-ignore';
+    toastElement.setAttribute('data-darkreader-ignore', 'true');
     wrapper.appendChild(toastElement);
 
     const mountTarget = document.body || document.documentElement;
