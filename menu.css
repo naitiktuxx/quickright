@@ -144,6 +144,18 @@
   transform: scale(1);
 }
 
+.nrc-menu-wrapper.no-animations .nrc-menu {
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.nrc-menu-wrapper.no-animations .nrc-item,
+.nrc-menu-wrapper.no-animations .nrc-shortcut,
+.nrc-menu-wrapper.no-animations .nrc-toast {
+  transition: none !important;
+}
+
 .nrc-item-list {
   display: flex;
   flex-direction: column;

@@ -12,7 +12,8 @@
     menuSize: 'medium',
     triggerMode: 'tap',
     longPressMs: 250,
-    movementThreshold: 5
+    movementThreshold: 5,
+    disableAnimations: false
   };
 
   // Safe storage sync
@@ -116,7 +117,8 @@
     const wrapper = shadowRoot.querySelector('.nrc-menu-wrapper');
     if (!wrapper) return;
     const menuSize = ['compact', 'medium', 'large'].includes(settings.menuSize) ? settings.menuSize : 'medium';
-    wrapper.className = `nrc-menu-wrapper theme-${settings.theme || 'auto'} menu-size-${menuSize}`;
+    const animClass = settings.disableAnimations ? 'no-animations' : '';
+    wrapper.className = `nrc-menu-wrapper theme-${settings.theme || 'auto'} menu-size-${menuSize} ${animClass}`.trim();
   }
 
   let toastTimer = null;
@@ -251,8 +253,8 @@
       if (label === 'Cut') return `${cmdKey}X`;
       if (label === 'Paste') return `${cmdKey}V`;
       if (label === 'Select All') return `${cmdKey}A`;
-      if (label === 'Scroll to Top') return isMac ? '↖' : 'Home';
-      if (label === 'Scroll to Bottom') return isMac ? '↘' : 'End';
+      if (label === 'Scroll to Top') return 'Home';
+      if (label === 'Scroll to Bottom') return 'End';
       return null;
     }
 
