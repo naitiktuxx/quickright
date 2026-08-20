@@ -1,0 +1,20 @@
+{
+  "name": "quick-right-click",
+  "version": "1.0.0",
+  "description": "Fast, clean native right-click context menu for Chromium with mouse gesture compatibility.",
+  "scripts": {
+    "build": "bash scripts/build-zip.sh",
+    "release": "bash scripts/release.sh",
+    "test": "node -c background.js content.js popup/popup.js"
+  },
+  "keywords": [
+    "chrome-extension",
+    "chromium",
+    "context-menu",
+    "right-click",
+    "mouse-gestures",
+    "macos"
+  ],
+  "author": "",
+  "license": "MIT"
+}

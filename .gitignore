@@ -19,3 +19,6 @@ yarn-error.log*
 *.swp
 *.swo
 *~
+
+# Build outputs
+dist/

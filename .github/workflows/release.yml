@@ -1,0 +1,74 @@
+name: Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Release Extension Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine Version
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+          fi
+          VERSION="${TAG#v}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Releasing version: $VERSION (Tag: $TAG)"
+
+      - name: Validate JavaScript Syntax
+        run: |
+          node -c background.js content.js popup/popup.js
+
+      - name: Build Installable Extension ZIP
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          mkdir -p dist
+          ZIP_NAME="quick-right-click-v${VERSION}.zip"
+          zip -r "dist/$ZIP_NAME" \
+            manifest.json \
+            background.js \
+            content.js \
+            menu.css \
+            popup \
+            icons \
+            README.md \
+            LICENSE \
+            -x "*.DS_Store*" -x "*__MACOSX*"
+          echo "zip_name=$ZIP_NAME" >> $GITHUB_OUTPUT
+          ls -lh "dist/$ZIP_NAME"
+        id: build
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_version.outputs.tag }}
+          name: Release ${{ steps.get_version.outputs.tag }}
+          files: dist/*.zip
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
