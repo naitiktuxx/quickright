@@ -19,11 +19,11 @@
 
 ## The Backstory: Why I Built This
 
-If you’ve ever tried using mouse gesture extensions on macOS Chromium (Google Chrome, Brave, Edge, Arc), you know the pain:
+If you've ever used a right-click mouse gesture extension in Chromium browsers (Chrome, Brave, Edge, Arc), you've likely hit this frustrating problem:
 
-> **The macOS Chromium Quirk:**  
-> On macOS, Chromium fires the `contextmenu` event immediately on `mousedown` (the moment your finger presses down on the right mouse button).  
-> If you hold right-click and drag to perform a gesture (like closing a tab, navigating back, or scrolling to the bottom), **a native context menu pops up right over your gesture, stealing focus and ruining the motion**.
+> **The Right-Click Gesture Conflict in Chromium:**  
+> In Chromium browsers, mouse gesture extensions must intercept right-click events to track your mouse motions. In doing so, **they frequently mess up, suppress, or completely break the browser's native right-click context menu**.  
+> You end up with a broken experience: either your gestures trigger accidentally when trying to open a context menu, or your native context menu stops opening reliably altogether.
 
 Existing workaround extensions were frustrating:
 - They felt sluggish and flickered when opening.
@@ -32,7 +32,7 @@ Existing workaround extensions were frustrating:
 - Their CSS bled into webpages, breaking page layouts.
 
 **Native Right-Click was built to solve this once and for all.**  
-It provides a pixel-perfect, liquid-glass context menu that opens instantly on stationary taps, while giving your gesture extension complete, uninterrupted freedom whenever you drag.
+It replaces the broken context menu experience with a pixel-perfect, liquid-glass menu that opens reliably on stationary taps, while granting your mouse gesture extensions complete, uninterrupted freedom whenever you drag.
 
 ---
 
