@@ -216,6 +216,28 @@
   white-space: nowrap;
 }
 
+.nrc-shortcut {
+  font-size: 11px;
+  color: var(--nrc-text-secondary);
+  opacity: 0.65;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+  font-weight: 500;
+  margin-left: 12px;
+  flex-shrink: 0;
+  transition: color 0.12s ease, opacity 0.12s ease;
+}
+
+.nrc-item:hover .nrc-shortcut,
+.nrc-item.focused .nrc-shortcut {
+  opacity: 0.95;
+  color: #ffffff;
+}
+
+.nrc-item.disabled .nrc-shortcut {
+  opacity: 0.25;
+}
+
 .nrc-separator {
   height: 1px;
   background-color: var(--nrc-separator);

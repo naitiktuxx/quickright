@@ -239,7 +239,24 @@
       return menuIcons.copy;
     }
 
-    function addItem({ label, action, disabled }) {
+    const isMac = (navigator.userAgentData?.platform || navigator.platform || '').toUpperCase().indexOf('MAC') >= 0;
+    const cmdKey = isMac ? '⌘' : 'Ctrl+';
+
+    function getShortcutHint(label) {
+      if (label === 'Reload') return `${cmdKey}R`;
+      if (label === 'New Tab') return `${cmdKey}T`;
+      if (label === 'Close Tab') return `${cmdKey}W`;
+      if (label === 'Downloads') return `${cmdKey}J`;
+      if (label === 'Copy' || label === 'Copy Link Address' || label === 'Copy Page URL') return `${cmdKey}C`;
+      if (label === 'Cut') return `${cmdKey}X`;
+      if (label === 'Paste') return `${cmdKey}V`;
+      if (label === 'Select All') return `${cmdKey}A`;
+      if (label === 'Scroll to Top') return isMac ? '↖' : 'Home';
+      if (label === 'Scroll to Bottom') return isMac ? '↘' : 'End';
+      return null;
+    }
+
+    function addItem({ label, action, disabled, shortcut }) {
       const item = document.createElement('div');
       item.className = `nrc-item ${disabled ? 'disabled' : ''}`;
 
@@ -256,6 +273,14 @@
       labelEl.className = 'nrc-item-label';
       labelEl.textContent = label;
       item.appendChild(labelEl);
+
+      const shortcutText = shortcut !== undefined ? shortcut : getShortcutHint(label);
+      if (shortcutText) {
+        const shortcutEl = document.createElement('span');
+        shortcutEl.className = 'nrc-shortcut';
+        shortcutEl.textContent = shortcutText;
+        item.appendChild(shortcutEl);
+      }
 
       if (!disabled) {
         item.addEventListener('click', (e) => {
