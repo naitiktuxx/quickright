@@ -41,7 +41,7 @@
   --nrc-active-bg: #1557b0;
   --nrc-border: rgba(255, 255, 255, 0.28);
   --nrc-separator: rgba(255, 255, 255, 0.22);
-  --nrc-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 44px rgba(0, 0, 0, 0.45), 0 3px 10px rgba(0, 0, 0, 0.25);
+  --nrc-shadow: none;
   --nrc-menu-min-width: 210px;
   --nrc-menu-font-size: 13px;
   --nrc-item-height: 34px;
@@ -90,7 +90,7 @@
     --nrc-active-bg: #1557b0;
     --nrc-border: rgba(0, 0, 0, 0.22);
     --nrc-separator: rgba(0, 0, 0, 0.16);
-    --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+    --nrc-shadow: none;
   }
 }
 
@@ -103,7 +103,7 @@
   --nrc-active-bg: #1557b0;
   --nrc-border: rgba(0, 0, 0, 0.22);
   --nrc-separator: rgba(0, 0, 0, 0.16);
-  --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+  --nrc-shadow: none;
 }
 
 .nrc-menu-wrapper.theme-dark {
@@ -115,7 +115,7 @@
   --nrc-active-bg: #1557b0;
   --nrc-border: rgba(255, 255, 255, 0.28);
   --nrc-separator: rgba(255, 255, 255, 0.22);
-  --nrc-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 44px rgba(0, 0, 0, 0.45), 0 3px 10px rgba(0, 0, 0, 0.25);
+  --nrc-shadow: none;
 }
 
 .nrc-menu {
@@ -130,7 +130,7 @@
   color: var(--nrc-text);
   border: 1.2px solid var(--nrc-border);
   border-radius: var(--nrc-menu-radius);
-  box-shadow: var(--nrc-shadow);
+  box-shadow: none;
   backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86);
   -webkit-backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86);
   padding: var(--nrc-menu-padding);
@@ -284,7 +284,7 @@
   background-color: var(--nrc-bg);
   color: var(--nrc-text);
   border: 1px solid var(--nrc-border);
-  box-shadow: var(--nrc-shadow);
+  box-shadow: none;
   backdrop-filter: blur(28px) saturate(145%) contrast(105%) brightness(0.86);
   -webkit-backdrop-filter: blur(28px) saturate(145%) contrast(105%) brightness(0.86);
   padding: 7px 16px;
@@ -323,7 +323,7 @@ html.darkreader .nrc-menu,
   background-color: var(--nrc-bg) !important;
   color: var(--nrc-text) !important;
   border: 1.2px solid var(--nrc-border) !important;
-  box-shadow: var(--nrc-shadow) !important;
+  box-shadow: none !important;
   backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86) !important;
   -webkit-backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86) !important;
 }
