@@ -171,7 +171,8 @@
   border-radius: var(--nrc-item-radius);
   color: var(--nrc-text);
   font-size: var(--nrc-menu-font-size);
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: 0.15px;
   cursor: default;
   box-sizing: border-box;
   text-decoration: none;
