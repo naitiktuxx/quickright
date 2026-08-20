@@ -245,7 +245,13 @@ h2 {
   font-size: 11px;
 }
 
-/* Toggle Switch */
+/* Toggle Switches */
+.toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .toggle-row {
   display: flex;
   align-items: center;

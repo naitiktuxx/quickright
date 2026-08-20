@@ -13,8 +13,8 @@
     triggerMode: 'tap',
     longPressMs: 250,
     movementThreshold: 5,
-    disableAnimations: false,
-    scrollGestures: true
+    lockScrollWhenOpen: true,
+    disableAnimations: false
   };
 
   // Safe storage sync
@@ -61,7 +61,6 @@
   let downX = 0;
   let downY = 0;
   let isDragging = false;
-  let currentGesture = null;
   let longPressTimer = null;
   let lastRmbClickTime = 0;
   let lastTarget = null;
@@ -945,7 +944,6 @@
       downX = e.clientX;
       downY = e.clientY;
       isDragging = false;
-      currentGesture = null;
       lastTarget = e.target;
 
       if (isMenuOpen) {
@@ -966,23 +964,11 @@
   window.addEventListener('mousemove', (e) => {
     if (!isRmbDown) return;
 
-    const deltaX = e.clientX - downX;
-    const deltaY = e.clientY - downY;
-    const dist = Math.hypot(deltaX, deltaY);
-
+    const dist = Math.hypot(e.clientX - downX, e.clientY - downY);
     if (dist >= (settings.movementThreshold || 5)) {
       isDragging = true;
       if (longPressTimer) clearTimeout(longPressTimer);
       if (isMenuOpen) closeMenu();
-    }
-
-    // Recognize vertical scroll gestures
-    if (settings.scrollGestures !== false && Math.abs(deltaY) >= 28 && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
-      if (deltaY > 0) {
-        currentGesture = 'down';
-      } else {
-        currentGesture = 'up';
-      }
     }
   }, { capture: true, passive: true });
 
@@ -995,24 +981,8 @@
       const now = Date.now();
       const dist = Math.hypot(e.clientX - downX, e.clientY - downY);
       const isDrag = isDragging || dist >= (settings.movementThreshold || 5);
-      const gesture = currentGesture;
-      currentGesture = null;
 
-      // Built-in Right-Click Scroll Gestures
-      if (gesture && isDrag) {
-        const target = (e.clientX && e.clientY ? document.elementFromPoint(e.clientX, e.clientY) : null) || lastTarget || e.target;
-        if (gesture === 'down') {
-          scrollToBottomAction(target);
-          showToast('Scrolled to bottom');
-          return;
-        } else if (gesture === 'up') {
-          scrollToTopAction(target);
-          showToast('Scrolled to top');
-          return;
-        }
-      }
-
-      // If user dragged (for other gesture extensions), DO NOT open menu
+      // If user dragged, DO NOT open menu under any circumstance
       if (isDrag) {
         return;
       }
@@ -1039,9 +1009,38 @@
     e.preventDefault();
   }, { capture: true });
 
+  // Lock background scroll when menu is open (if enabled in settings)
+  window.addEventListener('wheel', (e) => {
+    if (!isMenuOpen) return;
+
+    if (settings.lockScrollWhenOpen !== false) {
+      const path = e.composedPath ? e.composedPath() : [];
+      if (menuContainer && path.includes(menuContainer)) {
+        const isScrollable = menuContainer.scrollHeight > menuContainer.clientHeight;
+        if (isScrollable) return;
+      }
+      e.preventDefault();
+    }
+  }, { capture: true, passive: false });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isMenuOpen) return;
+
+    if (settings.lockScrollWhenOpen !== false) {
+      const path = e.composedPath ? e.composedPath() : [];
+      if (menuContainer && path.includes(menuContainer)) {
+        const isScrollable = menuContainer.scrollHeight > menuContainer.clientHeight;
+        if (isScrollable) return;
+      }
+      e.preventDefault();
+    }
+  }, { capture: true, passive: false });
+
   // Dismiss listeners
   window.addEventListener('scroll', () => {
-    if (isMenuOpen) closeMenu();
+    if (isMenuOpen && settings.lockScrollWhenOpen === false) {
+      closeMenu();
+    }
   }, { passive: true });
 
   window.addEventListener('resize', () => {
