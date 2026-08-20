@@ -16,15 +16,15 @@
 }
 
 .nrc-menu-wrapper {
-  --nrc-bg: rgba(29, 30, 33, 0.62);
+  --nrc-bg: rgba(29, 30, 33, 0.72);
   --nrc-text: #f0f0f2;
   --nrc-text-secondary: #9aa0a6;
   --nrc-text-disabled: rgba(255, 255, 255, 0.32);
   --nrc-hover-bg: #1656ba;
   --nrc-active-bg: #1557b0;
-  --nrc-border: rgba(190, 193, 202, 0.46);
-  --nrc-separator: rgba(255, 255, 255, 0.12);
-  --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.34), 0 18px 44px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  --nrc-border: rgba(255, 255, 255, 0.28);
+  --nrc-separator: rgba(255, 255, 255, 0.22);
+  --nrc-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 44px rgba(0, 0, 0, 0.45), 0 3px 10px rgba(0, 0, 0, 0.25);
   --nrc-menu-min-width: 210px;
   --nrc-menu-font-size: 13px;
   --nrc-item-height: 34px;
@@ -65,40 +65,40 @@
 
 @media (prefers-color-scheme: light) {
   .nrc-menu-wrapper.theme-auto {
-    --nrc-bg: rgba(255, 255, 255, 0.72);
+    --nrc-bg: rgba(255, 255, 255, 0.78);
     --nrc-text: #1a1a1c;
     --nrc-text-secondary: #5f6368;
     --nrc-text-disabled: rgba(0, 0, 0, 0.32);
     --nrc-hover-bg: #1656ba;
     --nrc-active-bg: #1557b0;
-    --nrc-border: rgba(255, 255, 255, 0.75);
-    --nrc-separator: rgba(0, 0, 0, 0.08);
-    --nrc-shadow: 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    --nrc-border: rgba(0, 0, 0, 0.22);
+    --nrc-separator: rgba(0, 0, 0, 0.16);
+    --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 }
 
 .nrc-menu-wrapper.theme-light {
-  --nrc-bg: rgba(255, 255, 255, 0.72);
+  --nrc-bg: rgba(255, 255, 255, 0.78);
   --nrc-text: #1a1a1c;
   --nrc-text-secondary: #5f6368;
   --nrc-text-disabled: rgba(0, 0, 0, 0.32);
   --nrc-hover-bg: #1656ba;
   --nrc-active-bg: #1557b0;
-  --nrc-border: rgba(255, 255, 255, 0.75);
-  --nrc-separator: rgba(0, 0, 0, 0.08);
-  --nrc-shadow: 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  --nrc-border: rgba(0, 0, 0, 0.22);
+  --nrc-separator: rgba(0, 0, 0, 0.16);
+  --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 16px 36px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .nrc-menu-wrapper.theme-dark {
-  --nrc-bg: rgba(29, 30, 33, 0.62);
+  --nrc-bg: rgba(29, 30, 33, 0.72);
   --nrc-text: #f0f0f2;
   --nrc-text-secondary: #9aa0a6;
   --nrc-text-disabled: rgba(255, 255, 255, 0.32);
   --nrc-hover-bg: #1656ba;
   --nrc-active-bg: #1557b0;
-  --nrc-border: rgba(190, 193, 202, 0.46);
-  --nrc-separator: rgba(255, 255, 255, 0.12);
-  --nrc-shadow: 0 0 0 1px rgba(0, 0, 0, 0.34), 0 18px 44px rgba(0, 0, 0, 0.38), 0 3px 10px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  --nrc-border: rgba(255, 255, 255, 0.28);
+  --nrc-separator: rgba(255, 255, 255, 0.22);
+  --nrc-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 44px rgba(0, 0, 0, 0.45), 0 3px 10px rgba(0, 0, 0, 0.25);
 }
 
 .nrc-menu {
@@ -111,7 +111,7 @@
   scrollbar-width: thin;
   background-color: var(--nrc-bg);
   color: var(--nrc-text);
-  border: 1px solid var(--nrc-border);
+  border: 1.2px solid var(--nrc-border);
   border-radius: var(--nrc-menu-radius);
   box-shadow: var(--nrc-shadow);
   backdrop-filter: blur(34px) saturate(145%) contrast(105%) brightness(0.86);
