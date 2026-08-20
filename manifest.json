@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Native Right-Click Menu for Chromium",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fast, clean right-click context menu that coexists smoothly with mouse gesture extensions.",
   "permissions": [
     "tabs",
@@ -27,16 +27,24 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_start",
       "all_frames": true
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["menu.css"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "menu.css"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }

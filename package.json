@@ -1,6 +1,6 @@
 {
   "name": "quick-right-click",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fast, clean native right-click context menu for Chromium with mouse gesture compatibility.",
   "scripts": {
     "build": "bash scripts/build-zip.sh",
