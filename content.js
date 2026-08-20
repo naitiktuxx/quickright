@@ -115,7 +115,70 @@
     if (mountTarget) {
       mountTarget.appendChild(menuHost);
     }
+    setupDarkReaderShield(shadowRoot);
     updateThemeClass();
+  }
+
+  function setupDarkReaderShield(root) {
+    if (!root) return;
+    const purgeDarkReader = () => {
+      try {
+        const injected = root.querySelectorAll('style[class*="darkreader"], style[data-darkreader], link[class*="darkreader"]');
+        injected.forEach(el => el.remove());
+        const inlineElements = root.querySelectorAll('[data-darkreader-inline-bgcolor], [data-darkreader-inline-color], [data-darkreader-inline-border]');
+        inlineElements.forEach(el => {
+          el.removeAttribute('data-darkreader-inline-bgcolor');
+          el.removeAttribute('data-darkreader-inline-color');
+          el.removeAttribute('data-darkreader-inline-border');
+        });
+      } catch (e) {}
+    };
+
+    purgeDarkReader();
+
+    try {
+      const observer = new MutationObserver((mutations) => {
+        let dirty = false;
+        for (const m of mutations) {
+          if (m.addedNodes?.length) {
+            for (const n of m.addedNodes) {
+              if (n.nodeType === 1 && (
+                n.className?.toString().includes('darkreader') ||
+                n.hasAttribute?.('data-darkreader-inline-bgcolor') ||
+                (n.tagName === 'STYLE' && n.textContent?.includes('darkreader'))
+              )) {
+                dirty = true;
+                break;
+              }
+            }
+          }
+        }
+        if (dirty) purgeDarkReader();
+      });
+
+      observer.observe(root, { childList: true, subtree: true });
+    } catch (e) {}
+  }
+
+  function syncFilterImmunity() {
+    if (!menuHost) return;
+    try {
+      const htmlEl = document.documentElement;
+      const htmlStyle = window.getComputedStyle(htmlEl);
+      const bodyStyle = document.body ? window.getComputedStyle(document.body) : null;
+      const htmlFilter = htmlStyle.filter || '';
+      const bodyFilter = bodyStyle ? (bodyStyle.filter || '') : '';
+
+      const isFilterMode = htmlFilter.includes('invert') || bodyFilter.includes('invert') ||
+        (htmlEl.hasAttribute('data-darkreader-mode') &&
+        (htmlEl.getAttribute('data-darkreader-mode') === 'filter' || htmlEl.getAttribute('data-darkreader-mode') === 'filter+'));
+
+      if (isFilterMode) {
+        menuHost.style.setProperty('filter', 'invert(100%) hue-rotate(180deg)', 'important');
+      } else {
+        menuHost.style.setProperty('filter', 'none', 'important');
+      }
+    } catch (e) {}
   }
 
   function updateThemeClass() {
@@ -125,6 +188,7 @@
     const menuSize = ['compact', 'medium', 'large'].includes(settings.menuSize) ? settings.menuSize : 'medium';
     const animClass = settings.disableAnimations ? 'no-animations' : '';
     wrapper.className = `nrc-menu-wrapper theme-${settings.theme || 'auto'} menu-size-${menuSize} ${animClass}`.trim();
+    syncFilterImmunity();
   }
 
   let toastTimer = null;
