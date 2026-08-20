@@ -13,7 +13,8 @@
     triggerMode: 'tap',
     longPressMs: 250,
     movementThreshold: 5,
-    disableAnimations: false
+    disableAnimations: false,
+    scrollGestures: true
   };
 
   // Safe storage sync
@@ -60,6 +61,7 @@
   let downX = 0;
   let downY = 0;
   let isDragging = false;
+  let currentGesture = null;
   let longPressTimer = null;
   let lastRmbClickTime = 0;
   let lastTarget = null;
@@ -211,7 +213,9 @@
       reload: 'M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z',
       newTab: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 10h-4v4h-2v-4H8v-2h4V7h2v4h4v2z',
       close: 'M18.3 5.71 16.89 4.3 12 9.17 7.11 4.3 5.7 5.71 10.59 10.59 5.7 15.48l1.41 1.41L12 12l4.89 4.89 1.41-1.41-4.89-4.89 4.89-4.88z',
-      downloads: 'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2z'
+      downloads: 'M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2z',
+      scrollTop: 'm7.41 15.59L12 11l4.59 4.59L18 14.17l-6-6-6 6 1.41 1.42zM5 4h14v2H5z',
+      scrollBottom: 'm7.41 8.41L12 13l4.59-4.59L18 9.83l-6 6-6-6 1.41-1.42zM5 18h14v2H5z'
     };
 
     function getMenuIcon(label) {
@@ -234,6 +238,8 @@
       if (label === 'New Tab') return menuIcons.newTab;
       if (label === 'Close Tab') return menuIcons.close;
       if (label === 'Downloads') return menuIcons.downloads;
+      if (label === 'Scroll to Top') return menuIcons.scrollTop;
+      if (label === 'Scroll to Bottom') return menuIcons.scrollBottom;
       return menuIcons.copy;
     }
 
@@ -249,6 +255,8 @@
       if (label === 'Cut') return `${cmdKey}X`;
       if (label === 'Paste') return `${cmdKey}V`;
       if (label === 'Select All') return `${cmdKey}A`;
+      if (label === 'Scroll to Top') return 'Home';
+      if (label === 'Scroll to Bottom') return 'End';
       return null;
     }
 
@@ -384,6 +392,61 @@
           document.execCommand('insertText', false, text);
         }
       }
+    }
+
+    function findScrollableContainer(target) {
+      let el = target;
+      while (el && el !== document.body && el !== document.documentElement) {
+        try {
+          const style = window.getComputedStyle(el);
+          const overflowY = style.overflowY || style.overflow;
+          if ((overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'overlay') && el.scrollHeight > el.clientHeight + 10) {
+            return el;
+          }
+        } catch (e) {}
+        el = el.parentElement;
+      }
+      return null;
+    }
+
+    function scrollToTopAction(target) {
+      const container = findScrollableContainer(target);
+      if (container) {
+        container.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      if (document.scrollingElement) {
+        document.scrollingElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      if (document.documentElement) {
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      if (document.body) {
+        document.body.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+
+    function scrollToBottomAction(target) {
+      const container = findScrollableContainer(target);
+      if (container) {
+        container.scrollTo({ top: container.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      const maxScroll = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement ? document.documentElement.scrollHeight : 0,
+        document.scrollingElement ? document.scrollingElement.scrollHeight : 0,
+        9999999
+      );
+      if (document.scrollingElement) {
+        document.scrollingElement.scrollTo({ top: document.scrollingElement.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      if (document.documentElement) {
+        document.documentElement.scrollTo({ top: document.documentElement.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      if (document.body) {
+        document.body.scrollTo({ top: document.body.scrollHeight, left: 0, behavior: 'smooth' });
+      }
+      window.scrollTo({ top: maxScroll, left: 0, behavior: 'smooth' });
     }
 
     async function copyImage(url, element) {
@@ -796,6 +859,15 @@
           }
         }
       });
+      addSeparator();
+      addItem({
+        label: 'Scroll to Top',
+        action: () => scrollToTopAction(target)
+      });
+      addItem({
+        label: 'Scroll to Bottom',
+        action: () => scrollToBottomAction(target)
+      });
     }
 
     menuContainer.appendChild(itemsList);
@@ -873,6 +945,7 @@
       downX = e.clientX;
       downY = e.clientY;
       isDragging = false;
+      currentGesture = null;
       lastTarget = e.target;
 
       if (isMenuOpen) {
@@ -893,11 +966,23 @@
   window.addEventListener('mousemove', (e) => {
     if (!isRmbDown) return;
 
-    const dist = Math.hypot(e.clientX - downX, e.clientY - downY);
+    const deltaX = e.clientX - downX;
+    const deltaY = e.clientY - downY;
+    const dist = Math.hypot(deltaX, deltaY);
+
     if (dist >= (settings.movementThreshold || 5)) {
       isDragging = true;
       if (longPressTimer) clearTimeout(longPressTimer);
       if (isMenuOpen) closeMenu();
+    }
+
+    // Recognize vertical scroll gestures
+    if (settings.scrollGestures !== false && Math.abs(deltaY) >= 28 && Math.abs(deltaY) > Math.abs(deltaX) * 1.15) {
+      if (deltaY > 0) {
+        currentGesture = 'down';
+      } else {
+        currentGesture = 'up';
+      }
     }
   }, { capture: true, passive: true });
 
@@ -910,8 +995,24 @@
       const now = Date.now();
       const dist = Math.hypot(e.clientX - downX, e.clientY - downY);
       const isDrag = isDragging || dist >= (settings.movementThreshold || 5);
+      const gesture = currentGesture;
+      currentGesture = null;
 
-      // If user dragged, DO NOT open menu under any circumstance
+      // Built-in Right-Click Scroll Gestures
+      if (gesture && isDrag) {
+        const target = (e.clientX && e.clientY ? document.elementFromPoint(e.clientX, e.clientY) : null) || lastTarget || e.target;
+        if (gesture === 'down') {
+          scrollToBottomAction(target);
+          showToast('Scrolled to bottom');
+          return;
+        } else if (gesture === 'up') {
+          scrollToTopAction(target);
+          showToast('Scrolled to top');
+          return;
+        }
+      }
+
+      // If user dragged (for other gesture extensions), DO NOT open menu
       if (isDrag) {
         return;
       }

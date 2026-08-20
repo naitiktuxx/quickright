@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const thresholdSlider = document.getElementById('dragThreshold');
   const thresholdValue = document.getElementById('thresholdValue');
   const themeCards = document.querySelectorAll('.theme-card');
+  const scrollGesturesCheckbox = document.getElementById('scrollGestures');
   const disableAnimationsCheckbox = document.getElementById('disableAnimations');
   const savedIndicator = document.getElementById('savedIndicator');
 
@@ -22,7 +23,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     triggerMode: 'tap',
     theme: 'auto',
     movementThreshold: 5,
-    disableAnimations: false
+    disableAnimations: false,
+    scrollGestures: true
   });
 
   // 1. Trigger mode
@@ -69,7 +71,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // 4. Disable animations toggle
+  // 4. Drag-to-Scroll Gestures toggle
+  scrollGesturesCheckbox.checked = settings.scrollGestures !== false;
+  scrollGesturesCheckbox.addEventListener('change', async () => {
+    await chrome.storage.sync.set({ scrollGestures: scrollGesturesCheckbox.checked });
+    notifySaved();
+  });
+
+  // 5. Disable animations toggle
   disableAnimationsCheckbox.checked = Boolean(settings.disableAnimations);
   disableAnimationsCheckbox.addEventListener('change', async () => {
     await chrome.storage.sync.set({ disableAnimations: disableAnimationsCheckbox.checked });
