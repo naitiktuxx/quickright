@@ -5,7 +5,7 @@
   "scripts": {
     "build": "bash scripts/build-zip.sh",
     "release": "bash scripts/release.sh",
-    "test": "node -c background.js content.js popup/popup.js"
+    "test": "node -c background.js content.js popup/popup.js sidepanel/sidepanel.js"
   },
   "keywords": [
     "chrome-extension",

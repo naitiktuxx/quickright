@@ -245,6 +245,111 @@ h2 {
   font-size: 11px;
 }
 
+/* Size Grid */
+.size-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.size-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.size-card:hover {
+  background: var(--card-hover);
+}
+
+.size-card.active {
+  border-color: var(--accent-color);
+  background: var(--accent-light);
+  font-weight: 600;
+}
+
+.size-name {
+  font-size: 11px;
+}
+
+/* AI Assistant Grid */
+.ai-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.ai-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.ai-card:hover {
+  background: var(--card-hover);
+}
+
+.ai-card.active {
+  border-color: var(--accent-color);
+  background: var(--accent-light);
+  font-weight: 600;
+}
+
+.ai-name {
+  font-size: 11px;
+}
+
+/* AI Launch Target Grid */
+.target-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.target-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.target-card:hover {
+  background: var(--card-hover);
+}
+
+.target-card.active {
+  border-color: var(--accent-color);
+  background: var(--accent-light);
+  font-weight: 600;
+}
+
+.target-name {
+  font-size: 11px;
+}
+
 /* Toggle Switches */
 .toggle-group {
   display: flex;

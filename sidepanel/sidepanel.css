@@ -1,0 +1,203 @@
+/* sidepanel.css - Direct Live Embedded AI Website */
+
+:root {
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --header-border: rgba(0, 0, 0, 0.08);
+  --text-primary: #1e1f22;
+  --text-secondary: #6e737c;
+  --accent-color: #2563eb;
+  --accent-light: rgba(37, 99, 235, 0.1);
+  --btn-hover: rgba(0, 0, 0, 0.05);
+  --dropdown-bg: #ffffff;
+  --dropdown-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-bg: rgba(26, 27, 30, 0.88);
+    --header-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f2f3f5;
+    --text-secondary: #9da3af;
+    --accent-color: #38bdf8;
+    --accent-light: rgba(56, 189, 248, 0.14);
+    --btn-hover: rgba(255, 255, 255, 0.08);
+    --dropdown-bg: #222429;
+    --dropdown-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Floating Navigation Header */
+.floating-header {
+  height: 38px;
+  min-height: 38px;
+  background: var(--header-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--header-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  position: relative;
+  z-index: 100;
+  user-select: none;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Provider Dropdown */
+.provider-dropdown-wrapper {
+  position: relative;
+}
+
+.provider-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-light);
+  color: var(--accent-color);
+  border: 1px solid var(--header-border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-family: inherit;
+}
+
+.provider-badge:hover {
+  opacity: 0.9;
+}
+
+.dropdown-chevron {
+  transition: transform 0.15s ease;
+}
+
+.provider-dropdown-wrapper.open .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.provider-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: var(--dropdown-bg);
+  border: 1px solid var(--header-border);
+  border-radius: 8px;
+  box-shadow: var(--dropdown-shadow);
+  display: none;
+  flex-direction: column;
+  min-width: 140px;
+  padding: 4px;
+  z-index: 200;
+}
+
+.provider-dropdown-wrapper.open .provider-menu {
+  display: flex;
+}
+
+.menu-item {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  text-align: left;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s ease;
+}
+
+.menu-item:hover {
+  background: var(--btn-hover);
+}
+
+.menu-item.active {
+  color: var(--accent-color);
+  font-weight: 600;
+  background: var(--accent-light);
+}
+
+/* Header Buttons */
+.header-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.header-btn:hover {
+  color: var(--text-primary);
+  background: var(--btn-hover);
+}
+
+.close-btn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+/* Loading Progress Bar */
+.loading-bar {
+  height: 2px;
+  width: 0%;
+  background: var(--accent-color);
+  position: absolute;
+  top: 37px;
+  left: 0;
+  z-index: 101;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.loading-bar.active {
+  width: 80%;
+}
+
+.loading-bar.done {
+  width: 100%;
+  opacity: 0;
+}
+
+/* Iframe Full Container */
+.frame-container {
+  flex: 1;
+  width: 100%;
+  height: calc(100% - 38px);
+  position: relative;
+  background: #ffffff;
+}
+
+#aiFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}

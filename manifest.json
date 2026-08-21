@@ -7,8 +7,23 @@
     "tabs",
     "storage",
     "clipboardWrite",
-    "downloads"
+    "downloads",
+    "sidePanel",
+    "declarativeNetRequest"
   ],
+  "host_permissions": [
+    "*://*.google.com/*",
+    "*://*.chatgpt.com/*",
+    "*://*.openai.com/*",
+    "*://*.claude.ai/*",
+    "*://*.anthropic.com/*",
+    "*://*.perplexity.ai/*",
+    "*://*.grok.com/*",
+    "*://*.x.com/*"
+  ],
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  },
   "background": {
     "service_worker": "background.js"
   },

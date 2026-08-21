@@ -58,9 +58,9 @@
     <div class="section">
       <div class="section-head-row">
         <label class="section-title" for="dragThreshold">Gesture Drag Threshold</label>
-        <span class="value-badge" id="thresholdValue">5px</span>
+        <span class="value-badge" id="thresholdValue">6px</span>
       </div>
-      <input type="range" id="dragThreshold" min="2" max="16" step="1" value="5" class="slider">
+      <input type="range" id="dragThreshold" min="2" max="16" step="1" value="6" class="slider">
       <div class="slider-labels">
         <span>Sensitive (2px)</span>
         <span>Relaxed (16px)</span>
@@ -70,17 +70,74 @@
     <div class="section">
       <label class="section-title">Glass Theme</label>
       <div class="theme-grid">
-        <button type="button" class="theme-card" data-theme="auto">
+        <button type="button" class="theme-card" data-theme="auto" aria-label="System Theme">
           <svg class="theme-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18v-8c-4.42 0-8 3.58-8 8s3.58 8 8 8z" fill="currentColor"/></svg>
           <span class="theme-name">System</span>
         </button>
-        <button type="button" class="theme-card" data-theme="dark">
+        <button type="button" class="theme-card" data-theme="dark" aria-label="Dark Glass Theme">
           <svg class="theme-svg" viewBox="0 0 24 24"><path d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.6-6.8 1 1 0 0 0-1.2-1.3 8 8 0 1 1-7.8-10.7 1 1 0 0 0-1.3-1.2h-.4z" fill="currentColor"/></svg>
           <span class="theme-name">Dark Glass</span>
         </button>
-        <button type="button" class="theme-card" data-theme="light">
+        <button type="button" class="theme-card" data-theme="light" aria-label="Light Glass Theme">
           <svg class="theme-svg" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" fill="currentColor"/></svg>
           <span class="theme-name">Light Glass</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title">Menu Size</label>
+      <div class="size-grid">
+        <button type="button" class="size-card" data-size="compact" aria-label="Compact Menu Size">
+          <span class="size-name">Compact</span>
+        </button>
+        <button type="button" class="size-card" data-size="medium" aria-label="Medium Menu Size">
+          <span class="size-name">Medium</span>
+        </button>
+        <button type="button" class="size-card" data-size="large" aria-label="Large Menu Size">
+          <span class="size-name">Large</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title">AI Assistant</label>
+      <div class="ai-grid">
+        <button type="button" class="ai-card" data-ai="google_ai" aria-label="Google AI Mode">
+          <span class="ai-name">AI Mode</span>
+        </button>
+        <button type="button" class="ai-card" data-ai="chatgpt" aria-label="ChatGPT">
+          <span class="ai-name">ChatGPT</span>
+        </button>
+        <button type="button" class="ai-card" data-ai="claude" aria-label="Claude">
+          <span class="ai-name">Claude</span>
+        </button>
+        <button type="button" class="ai-card" data-ai="gemini" aria-label="Gemini">
+          <span class="ai-name">Gemini</span>
+        </button>
+        <button type="button" class="ai-card" data-ai="perplexity" aria-label="Perplexity">
+          <span class="ai-name">Perplexity</span>
+        </button>
+        <button type="button" class="ai-card" data-ai="grok" aria-label="Grok">
+          <span class="ai-name">Grok</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="section">
+      <label class="section-title">AI Launch Target</label>
+      <div class="target-grid">
+        <button type="button" class="target-card" data-target="sidepanel" aria-label="Open AI in Built-in Side Panel">
+          <span class="target-name">Side Panel</span>
+        </button>
+        <button type="button" class="target-card" data-target="split" aria-label="Open AI in Split Window">
+          <span class="target-name">Split Window</span>
+        </button>
+        <button type="button" class="target-card" data-target="tab" aria-label="Open AI in New Tab">
+          <span class="target-name">New Tab</span>
+        </button>
+        <button type="button" class="target-card" data-target="window" aria-label="Open AI in New Window">
+          <span class="target-name">New Window</span>
         </button>
       </div>
     </div>

@@ -35,8 +35,10 @@ In Chromium browsers (Chrome, Brave, Edge, Arc), mouse gesture extensions need t
 - **Context-Aware Actions:** Shows relevant options based on what was clicked (images, links, selected text, editable fields, or open page area).
 - **Image Tools:** Direct 1-click download, "Save Image As...", image copying, and "Open Image in New Tab" (placed next to current tab).
 - **Clipboard & Pasting:** Supports standard text pasting and pasting images/screenshots into web chat inputs (Discord, WhatsApp, Slack, GitHub).
-- **Search & AI Mode:** Quick Google search and direct link to Google AI Mode search for selected text or general queries.
+- **Search & AI Assistant:** Quick Google search and direct link to your preferred AI (**ChatGPT**, **Claude**, **Google AI Mode**, **Gemini**, **Perplexity**, **Grok**) with selected text or general queries.
+- **Split Tab / Split Screen Support:** Open your AI Assistant in a side-by-side split window alongside your current webpage with automatic query pre-population.
 - **Multi-Container Page Scrolling:** Smoothly scrolls the page or nested scroll containers in Single Page Applications (Discord, Reddit, Twitter/X, Slack).
+- **Menu Size Customization:** Choose between Compact, Medium, and Large context menu scaling.
 - **Lock Background Scroll Toggle:** Option to prevent background webpage scrolling while the menu is open.
 - **Dark Reader Compatible:** Protected against external filter inversions and stylesheet modifications.
 - **Shadow DOM Encapsulation:** Isolated styles that do not interfere with webpage styling.
@@ -64,17 +66,18 @@ In Chromium browsers (Chrome, Brave, Edge, Arc), mouse gesture extensions need t
 ### Text Selection
 - Copy (`⌘C` / `Ctrl+C`)
 - Search Google for selected text
-- Ask with AI Mode
+- Ask with AI *(ChatGPT, Claude, Google AI Mode, Gemini, Perplexity, or Grok in Split Screen or Tab)*
 
 ### Text Inputs & Editable Fields
 - Cut / Copy / Paste *(supports both text and image pasting)*
+- Ask with AI *(with input selection)*
 - Paste and Go *(navigates in current tab)*
 - Select All
 
 ### Page Area
 - Back / Forward *(disabled when no history exists)*
 - Reload
-- Ask with AI Mode
+- Ask with AI *(launches selected AI in Split Screen or Tab)*
 - New Tab / Close Tab / Downloads
 - Copy Page URL / Share
 - Scroll to Top / Scroll to Bottom
@@ -106,7 +109,10 @@ Click the extension icon in the browser toolbar to configure:
   - *Hold / Long Press:* Hold right-click for 250ms.
   - *Double Right-Click:* Rapid double right-click.
 - **Gesture Drag Sensitivity:** Adjust movement tolerance between `2px` and `16px`.
-- **Theme:** Choose between System Auto, Dark Glass, or Light Glass.
+- **Glass Theme:** Choose between System Auto, Dark Glass, or Light Glass.
+- **Menu Size:** Select Compact, Medium, or Large.
+- **AI Assistant:** Select your preferred AI (**AI Mode**, **ChatGPT**, **Claude**, **Gemini**, **Perplexity**, **Grok**).
+- **AI Launch Target:** Open AI in **Split Tab / Window** (side-by-side tiling), **New Tab**, or **New Window**.
 - **Lock Background Scroll:** Prevent background page scrolling while the menu is open.
 - **Disable Animations:** Instant menu opening with zero transitions.
 

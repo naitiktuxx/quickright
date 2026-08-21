@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Side Panel</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <!-- Top Floating Glass Navigation Header -->
+  <header class="floating-header">
+    <div class="header-left">
+      <div class="provider-dropdown-wrapper">
+        <button type="button" id="providerSelectorBtn" class="provider-badge" aria-label="Select AI Assistant">
+          <span id="activeAiName">ChatGPT</span>
+          <svg class="dropdown-chevron" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+        <div id="providerMenu" class="provider-menu">
+          <button type="button" class="menu-item" data-ai="google_ai">Google AI Mode</button>
+          <button type="button" class="menu-item" data-ai="chatgpt">ChatGPT</button>
+          <button type="button" class="menu-item" data-ai="claude">Claude</button>
+          <button type="button" class="menu-item" data-ai="gemini">Gemini</button>
+          <button type="button" class="menu-item" data-ai="perplexity">Perplexity</button>
+          <button type="button" class="menu-item" data-ai="grok">Grok</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button type="button" id="reloadBtn" class="header-btn" title="Reload AI Page" aria-label="Reload AI Page">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+          <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+        </svg>
+      </button>
+
+      <button type="button" id="popoutBtn" class="header-btn" title="Open in Full Tab" aria-label="Open in Full Tab">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+          <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59L7.76 14.83l1.41 1.41L19 6.41V10h2V3z"/>
+        </svg>
+      </button>
+
+      <button type="button" id="closeBtn" class="header-btn close-btn" title="Close Side Panel" aria-label="Close Side Panel">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Progress / Loading Bar -->
+  <div id="loadingBar" class="loading-bar"></div>
+
+  <!-- Live Embedded AI Frame -->
+  <main class="frame-container">
+    <iframe
+      id="aiFrame"
+      src="about:blank"
+      allow="clipboard-read; clipboard-write; microphone; camera; encrypted-media; geolocation"
+      sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"
+    ></iframe>
+  </main>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

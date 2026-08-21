@@ -24,6 +24,7 @@ zip -r "$ZIP_PATH" \
   content.js \
   menu.css \
   popup \
+  sidepanel \
   icons \
   -x "*.DS_Store*" -x "*__MACOSX*"
 
